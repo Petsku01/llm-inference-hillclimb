@@ -22,7 +22,7 @@ HERE = pathlib.Path(__file__).parent
 ROOT = HERE.parents[2]
 PLAN_PATH = ROOT / "runs" / "E3" / "stage3_p2a_apply-plan.json"
 MANIFEST_PATH = ROOT / "runs" / "E3" / "stage3-fresh-workload-v3.json"
-MODEL_PATH = pathlib.Path("/home/Petsku/llm-mallit/models/Qwen3.5-9B-Q4_K_M.gguf")
+MODEL_PATH = pathlib.Path("[REDACTED-MODELS]/Qwen3.5-9B-Q4_K_M.gguf")
 SCRATCH = pathlib.Path(os.environ.get("TMPDIR", "/tmp"))
 
 # ---------------------------------------------------------------------------
