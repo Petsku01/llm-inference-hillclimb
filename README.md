@@ -1,8 +1,12 @@
 # Hill-climbing local LLM inference on a 12 GB laptop GPU
 ### 12 GB laptop GPU / ARETE-27B IQ2_M / ollama vs llama.cpp: an evidence-led repeatability study
 
+## Methodology source: inference-optimisation-skill (MIT) by Sybil Solutions, applied and extended on a laptop-class GPU with two new measurement findings prepared for contribution (bundle registry-sub-arete, not yet submitted).
 
-## What a 12 GB laptop GPU can actually run
+
+## What a 12 GB laptop GPU can actually ru
+
+n
 
 A **Qwen3.5-9B Q4_K_M** at **131 072 token context** is validated end-to-end on this
 machine: **6/6 needles retrieved on all 3 cold starts** (fresh documents per cold start),
