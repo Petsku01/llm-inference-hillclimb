@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "recipe_id": "recipe-kv131k-q8-131072-v1",
+  "configuration": "kv131k-q8",
+  "state": "cold-rebuild-validated",
+  "created_utc_ns": 1795186582124434500,
+  "source_recipe_path": "runs/E3/recipes/recipe-kv131k-q8-131072-v1.json",
+  "stage2_gate_receipt_path": "runs/E3/gate-v4-stage2-verification.json",
+  "serving_parameters": {
+    "context_tokens": 131072,
+    "cache_k": "q8_0",
+    "cache_v": "q8_0",
+    "fa": "on",
+    "batch": 2048,
+    "ubatch": 512,
+    "slots": 1,
+    "rollback": 0
+  },
+  "serving_parameters_sha256": "f22a8b53ee04c61a4aa9030144f5e0480ddd576825b2f6ec81af25481a9bde7e",
+  "engine": {
+    "path": "llm-mallit/llama-b12359/llama-b12359/llama-server",
+    "sha256": "2085180fafb6a9ddc87f627071c51af8719d1c7ec987e0a1c0d76d5f1ef17538"
+  },
+  "model": {
+    "path": "llm-mallit/models/Qwen3.5-9B-Q4_K_M.gguf",
+    "sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+    "file_size_bytes": 5680522464
+  },
+  "source": {
+    "run_id": "E3-f9252b3573204f6b9d674c159b3c6aa3",
+    "evidence_dir": "E3-f9252b3573204f6b9d674c159b3c6aa3",
+    "config_path": "E3-f9252b3573204f6b9d674c159b3c6aa3/config.json",
+    "config_sha256": "c1f54107b5befa5245087fcdc74d190134099b765c5900f66eb4b60a358994d4"
+  },
+  "measured_reference": {
+    "qt": "10/10",
+    "needles": "3/3 @62 + 3/3 @100",
+    "greedy": "no equivalence claim (no f16@131k reference)",
+    "c1_median_tps": 62.00753968948449,
+    "device_peak_bytes": 8918138880,
+    "peak_band_bytes": [
+      8472231936,
+      9364045824
+    ]
+  },
+  "claim_limit": "measured-only; no lossless-equivalence claim",
+  "validation": {
+    "state": "cold-rebuild-validated",
+    "rebuild_run_id": "E3-73ab19138cfe476190d879782c19466a",
+    "rebuild_evidence_dir": "E3-73ab19138cfe476190d879782c19466a",
+    "model_identity_verified": true,
+    "effective_config_hash_match": true,
+    "qt": "10/10",
+    "needles": "3/3 @62 + 3/3 @100",
+    "greedy": "n/a (no f16@131k reference)",
+    "device_peak_observed_bytes": 8930721792,
+    "peak_in_band": true,
+    "cleanup_verified": true,
+    "validated_utc_ns": 1795186965930984363,
+    "receipt_paths": [
+      "E3-73ab19138cfe476190d879782c19466a/b3-chain-outcome.json",
+      null
+    ],
+    "fresh_needle_x2_2026_11_24": {
+      "runs": ["stage3-131k-c1", "stage3-131k-c2", "p2a-131k-QT6"],
+      "status_per_run": {
+        "stage3-131k-c1": "completed",
+        "stage3-131k-c2": "completed",
+        "p2a-131k-QT6": "completed"
+      },
+      "cold_starts": "2 stage-3 + 1 QT6-diagnostic (p2a)",
+      "inference_requests_total": 48,
+      "wall_s": [358.2048078629887, 358.2661725360085, 358.90934205497615],
+      "peak_gpu_mib": 8517,
+      "qt_pass_matrix": "11/16 per run identical (determinism byte-level: shared specs + answer texts identical c1 vs c2 vs QT6)",
+      "needles": "6/6 per run (fresh docs per cold start)",
+      "context_independence": "QT4-call empty + arithmetic 343 identical in 32k and 131k (quantization effect, not context-dependent)",
+      "known_limitations": [
+        "QT4-call empty (no tool_call emitted, deterministic)",
+        "arithmetic 343 vs 327 (deterministic quantized deviation)",
+        "grading-design classes: QT4-final tool-path + QT2 prefix + logic case (documented, not model weakness)"
+      ]
+    }
+  }
+}

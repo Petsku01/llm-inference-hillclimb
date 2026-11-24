@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Local LLM inference on a 12 GB laptop GPU — results</title>
+<style>
+  /* Swiss / International Typographic Style — strict rules:
+     1 sans face, 1 mono face, hairline rules only, no boxes, no badges,
+     no color except one accent, flush-left, grid 12/16 units.
+     Dark edition: inverted values, flat #0d0d0d, no gradients. */
+  :root { --ink: #ececec; --hair: #3a3a3a; --accent: #7ba7ff; --mut: #8f8f8f; --bg: #0d0d0d; }
+  html { background: var(--bg); }
+  body { background: var(--bg); }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--ink); max-width: 46rem; margin: 4rem auto 6rem;
+    padding: 0 1.25rem; line-height: 1.35; font-size: 15px;
+  }
+  .kicker {
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--bg); background: var(--ink); display: inline-block;
+    padding: 2px 7px; margin-bottom: 2rem;
+  }
+  h1 { font-size: 26px; font-weight: 700; line-height: 1.2; margin: 0 0 .4rem; }
+  .sub { color: var(--mut); margin: 0 0 2.6rem; font-size: 14px; }
+  hr.rule { border: 0; border-top: 1px solid var(--ink); margin: 2.8rem 0 0; }
+  dl { margin: 0; }
+  .row { display: grid; grid-template-columns: 13rem 1fr; }
+  .row + .row { border-top: 1px solid var(--hair); }
+  dt, dd { border-left: 0; padding: .55rem 0; margin: 0; }
+  dt {
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--mut); padding-right: 1.2rem;
+  }
+  dd { font-size: 15px; }
+  dd b { font-weight: 700; }
+  .cls {
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--mut); margin-left: .45rem;
+  }
+  .cls.derived, .cls.unconfirmed, .cls.diag { color: var(--bg); background: var(--mut); padding: 1px 4px; }
+  .cls.diag { background: var(--accent); }
+  code {
+    font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 13px;
+  }
+  .note { color: var(--mut); font-size: 13px; margin-top: 1.4rem; }
+  footer {
+    margin-top: 3rem; border-top: 4px solid var(--ink); padding-top: 1rem;
+    font-size: 12px; color: var(--mut);
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  @media print { body { margin: 2rem auto; } }
+</style>
+</head>
+<body>
+
+<p class="kicker">Evidence-led repeatability study · 2026-11-17 / x2 campaign 2026-11-24</p>
+
+<h1>Hill-climbing local LLM inference<br>on a 12 GB laptop GPU</h1>
+<p class="sub">12 GB laptop GPU · ARETE-27B IQ2_M and Qwen3.5-9B KV-configs · ollama vs llama.cpp · Petteri Kosonen, with Kuu (Hermes agent) · method: <a href="https://github.com/sybil-solutions/inference-optimisation-skill">Sybil Solutions skill (MIT)</a></p>
+
+<hr class="rule">
+<dl>
+
+  <div class="row">
+    <dt>Decode</dt>
+    <dd><b>23.82 → 27.41 tok/s</b> <span class="cls">measured, uncontrolled N=4</span><br>
+    wrapper→llama.cpp direct; +15.1 % of baseline — a comparison, not a causal claim</dd>
+  </div>
+
+  <div class="row">
+    <dt>Ceiling</dt>
+    <dd>weight-streaming ceiling ≈ <b>282 GB/s</b> <span class="cls derived">derived</span> — from the same model-size premise as the measurements; compute-branch unchanged <span class="cls diag">diag: FA 0.26 %, identity unverified</span></dd>
+  </div>
+
+  <div class="row">
+    <dt>Prefill</dt>
+    <dd>623.7 → 698.1 tok/s <span class="cls">measured</span> — real <b>2839 tokenizer tokens</b> (nominal 4096)</dd>
+  </div>
+
+  <div class="row">
+    <dt>Needle search</dt>
+    <dd><b>3 / 3 exact</b> at 5102 tokens (62 % of 8192 ctx) · TTFT <b>7.3 s</b> for the needle run, <b>239.4 ms</b> short-prompt — two measurement classes, kept apart</dd>
+  </div>
+
+  <div class="row">
+    <dt>Transfer</dt>
+    <dd>memcpy-D2D 156 GB/s gross / 78 GB/s one-way <span class="cls diag">stored summary; unit/normalization unconfirmed</span> — <b>not</b> SM bandwidth; do not read as device ceiling</dd>
+  </div>
+
+  <div class="row">
+    <dt>New: KV-config x2<br>(2026-11-24)</dt>
+    <dd>Qwen3.5-9B, q8_0 KV, two cold starts per config at <b>32 k</b> and <b>131 k</b>:
+    terminal <i>completed</i> 6/6, <b>96 requests</b>, byte-level determinism across every run
+    (shared specs + response texts identical), needle retrieval <b>6/6 per run</b> on fresh
+    documents, wall scales with context 70.7 → 358.3 s, 131 k peak <b>8517 MiB</b> <span class="cls">measured</span></dd>
+  </div>
+
+  <div class="row">
+    <dt>Known deviations<br>(deterministic, all runs)</dt>
+    <dd>QT4-call: empty response, no tool_call emitted · arithmetic 17×19+4 → 343 (expected 327).
+    Grading-design classes (not model faults): QT4-final tool-path vs text answer, QT2 prefix, logic case</dd>
+  </div>
+
+</dl>
+
+<p class="note">Quantized ladder claim bounded to IQ2_M full-fit — no general quant-size or decode-plateau conclusions are made. 128 K context verdict comes from the registry refusing 128 K pools; KV capacity figure remains unconfirmed.</p>
+
+<footer>
+  Claims carry their evidence class inline; raw sources live in
+  <code>evidence/claims-evidence-matrix.md</code> and the run ledgers
+  (<code>../inference-opt-9b/runs/E3/</code>). Findings marked
+  <i>prepared for contribution, not yet submitted</i> · local-only build,
+  publication decision pending · methodology: Sybil Solutions
+  inference-optimisation-skill, applied and extended on laptop-class GPU
+</footer>
+
+</body>
+</html>

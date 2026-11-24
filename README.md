@@ -1,0 +1,94 @@
+# Hill-climbing local LLM inference on a 12 GB laptop GPU
+### 12 GB laptop GPU / ARETE-27B IQ2_M / ollama vs llama.cpp: an evidence-led repeatability study
+
+**Author:** Petteri "Petsku" Kosonen, with Kuu (Hermes agent)
+**Date:** 2026-11-17
+**Methodology source:** [inference-optimisation-skill](https://github.com/sybil-solutions/inference-optimisation-skill) (MIT) by Sybil Solutions, applied and extended on a laptop-class GPU with two new measurement findings prepared for contribution (bundle registry-sub-arete, not yet submitted).
+
+![Results card](results/results-card-immersive.png)
+
+Interactive version: open [`results/results-card-immersive.html`](results/results-card-immersive.html) in a browser.
+
+## What this project is
+
+A hill-climb feasibility study of local LLM serving speed on a **12 GB laptop dGPU**, following
+the evidence methodology from the Sybil `inference-optimisation-skill`:
+
+1. Compute the theoretical ceiling first (bandwidth-bound decode, compute-bound prefill).
+2. Change one thing at a time, measure against interleaved controls (median-of-N).
+3. Gate on long-context retrieval; log every experiment, including failures.
+4. Qualify before claiming anything.
+
+The goal was not "make tok/s bigger". The question the skill says must always precede tuning:
+**what fraction of the hardware ceiling are we already at?**
+
+## Results (measured on this machine, ledger in `evidence/ledger.jsonl`)
+
+| Metric | ollama 0.40.15 (wrapper) | llama.cpp b12359 (direct) | Derived estimate (not an independent ceiling) |
+|---|---|---|---|
+| c1 decode (n=4) | 23.82 tok/s | **27.41 tok/s (+15.1% of baseline, uncontrolled n=4)** | ~282 GB/s SM-read (DERIVED from the same decode ×10.28 GB) |
+| prefill 4096 (2839 real tokens) | 623.7 tok/s | **698.1 tok/s (+11.9% of baseline, uncontrolled n=4)** | 1265 tok/s (SPEC-derived practical ceiling, peak-TFLOPS UNMEASURED) |
+| TTFT short | 260 ms | 239 ms | - |
+| Long-context needle @5102 tok (62% ctx) | - | **3/3 exact**, TTFT 7.3 s | - |
+
+Noise band with the direct server: **27.31-27.65 tok/s (<1.3% spread)** across the full protocol.
+
+## Findings
+
+### 1. The wrapper costs ~13-15 % -- an uncontrolled n=4 comparison, not a controlled win
+The direct llama.cpp server (27.41 tok/s) and the ollama wrapper (23.82 tok/s) were measured at
+n=4 with no paired controls, so the +15.1 % decode / +11.9 % prefill gap is an uncontrolled
+comparison, not a causal wrapper win. The decode rate times 10.28 GB/token gives ~282 GB/s
+effective read bandwidth — a value DERIVED from the same measured decode number, not an
+independent ceiling (so "~100 % of the SM-read ceiling" is not proven by this evidence). Flag
+tuning on top of `ollama` therefore cannot be shown to help or hurt from this evidence — the
+wrapper/direct gap is an uncontrolled n=4 comparison (DIAGNOSTIC), not a causal result. The
+observed difference is the engine layer itself, not a proven winning lever. A ceiling-first pass
+took about 10 minutes and prevented an unbounded flag sweep.
+
+### 2. `cudaMemcpy` D2D does not measure SM bandwidth
+A memcpy-based bandwidth probe returned **156 GB/s gross (78 GB/s one-way)** — stored summary;
+unit/normalization UNCONFIRMED (raw run log absent). The same GPU sustains ~282 GB/s of weight
+streaming during decode — model-derived via the 10.28 GB/token premise, not a direct SM traffic
+measurement. The copy runs on the copy engines (CE), not the SM read path. A memcpy probe is
+**not** a ceiling oracle on this hardware. The honest SM-read number is derived from a measured
+real workload (decode rate times bytes/token).
+
+### 3. Flash Attention: rejected as a lever (measured equality, diagnostic)
+FA on/off is within noise on this dense model (27.34 vs 27.41 tok/s; prefill 697.6 vs 698.1).
+The FA-on candidate's identity is unverified (ledger `startup_s=0.0`), so the FA comparison is
+DIAGNOSTIC, not a controlled rejection. Recorded as a rejected lever per the methodology.
+Negative results are part of the ledger.
+
+### 4. Context gate: registry policy refuses 128K pools (REPORT:9); KV capacity UNCONFIRMED
+`llama.cpp` at 8192 context holds the full pipeline in 12 GB. The registry-format context gate
+requires 128K-token pools. A dense 27B at 128K would need ~18.8 GB (weights + quantized KV) by
+one dense-KV-layout estimate, but the KV layout is UNCONFIRMED (THEORY.md gives ~17-34 GB KV +
+10.28 GB weights), so the exact "physically impossible 18.8 GB" figure is UNCONFIRMED, not an
+established measurement. Documented as a diagnostic-class setup rather than a passing recipe,
+with the next step identified: measured `peak-TFLOPS` plus a MoE/hybrid model class.
+
+## Tooling
+
+- `tools/bandwidth_probe.py` -- ctypes/cudart device-copy probe (source of finding 2)
+- `tools/gguf_meta.py` -- minimal GGUF header reader (architecture verdict, 851 tensors / 48 kv)
+- `evidence/` -- ledger, experiment plan (E0-E8), ceiling theory, configs
+- `results/` -- static and interactive result cards (self-contained, no dependencies)
+
+## Attribution
+
+Methodology, gates, harness design and language adapted from
+[Sybil Solutions' `inference-optimisation-skill`](https://github.com/sybil-solutions/inference-optimisation-skill)
+(MIT). This project does not re-use their numbers; all measurements were taken on the hardware
+named here. Their [`local-ai-registry`](https://github.com/sybil-solutions/local-ai-registry)
+recipe concept (validated recipes with evidence attached) motivates the artifact format.
+
+## Honest limits
+
+- One GPU class, one model, one quant. A study, not a survey.
+- `peak-TFLOPS` for the prefill ceiling is spec-derived, not measured. The prefill achieved-throughput share is 49-55% of the 1265 tok/s SPEC estimate (UNMEASURED ceiling; matrix M12).
+  That share is NOT remaining headroom; the actual prefill headroom remains UNOBSERVED until a GEMM probe runs.
+- Speculative decoding was not tested end-to-end: `ollama` hides that lever, and the direct path
+  would need a draft-model experiment (planned).
+- The skill followed here was one day old at the time of first use. Its published result table
+  was read, not replicated.
