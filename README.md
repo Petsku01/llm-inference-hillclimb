@@ -120,3 +120,22 @@ recipe concept (validated recipes with evidence attached) motivates the artifact
   would need a draft-model experiment (planned).
 - The skill followed here was one day old at the time of first use. Its published result table
   was read, not replicated.
+
+## 3b. Verify the claims on any machine (no GPU required)
+
+The published run logs let you check every headline number yourself:
+
+```
+python3 tools/verify-claims.py
+```
+
+55 checks run against `evidence/run-results/` (the six cold-start logs committed
+here): run statuses, the 96-request total, model + effective-config identity
+pins (read straight from the published `recipes-*.json`), byte-level determinism
+of the shared spec responses, 11/16 functional pass ×6, 6/6 needle retrieval on
+fresh documents ×6, wall times per context, and the budget totals
+(88/120 · 857.9/7200 · 44/312 · 429.822/5400). Exit code 1 if any claim fails.
+
+The `--go` command above reproduces the full campaign on identical hardware;
+this script needs only Python.
+

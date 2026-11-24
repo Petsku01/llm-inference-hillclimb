@@ -1,0 +1,22 @@
+{
+  "run_id": "E3-stage3-131k-c2",
+  "reservation_id": "E3-stage3-131k-c2",
+  "name": "stage3-131k-c2",
+  "scope": "stage3",
+  "planned_intents": 20,
+  "planned_wall_s": 1800,
+  "readiness_intents": 1,
+  "tokenize_intents": 0,
+  "effective_config": {
+    "context_tokens": 131072,
+    "cache_k": "q8_0",
+    "cache_v": "q8_0",
+    "fa": "on",
+    "batch": 2048,
+    "ubatch": 512,
+    "slots": 1,
+    "rollback": 0
+  },
+  "created_ns": 1795509628671130671,
+  "charged_intents": 22
+}
