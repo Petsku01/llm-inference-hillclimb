@@ -1,9 +1,6 @@
 # Hill-climbing local LLM inference on a 12 GB laptop GPU
 ### 12 GB laptop GPU / ARETE-27B IQ2_M / ollama vs llama.cpp: an evidence-led repeatability study
 
-**Author:** Petteri "Petsku" Kosonen, with Kuu (Hermes agent)
-**Date:** 2026-11-17
-**Methodology source:** [inference-optimisation-skill](https://github.com/sybil-solutions/inference-optimisation-skill) (MIT) by Sybil Solutions, applied and extended on a laptop-class GPU with two new measurement findings prepared for contribution (bundle registry-sub-arete, not yet submitted).
 
 ## What a 12 GB laptop GPU can actually run
 
@@ -139,3 +136,6 @@ fresh documents ×6, wall times per context, and the budget totals
 The `--go` command above reproduces the full campaign on identical hardware;
 this script needs only Python.
 
+**Author:** Petteri "Petsku" Kosonen, with Kuu (Hermes agent)
+**Date:** 2026-11-17
+**Methodology source:** [inference-optimisation-skill](https://github.com/sybil-solutions/inference-optimisation-skill) (MIT) by Sybil Solutions, applied and extended on a laptop-class GPU with two new measurement findings prepared for contribution (bundle registry-sub-arete, not yet submitted).
