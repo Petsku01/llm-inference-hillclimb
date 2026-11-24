@@ -27,6 +27,12 @@ The launcher loads its substrate from `evidence/guarded_runtime.py` and
 `evidence/execution-core.py`; the captured results for this run and its five
 companions are stored alongside in `evidence/run-results/`.
 
+For the full 6-ladder reproduction, use the apply plan that drove the 2026-11-24
+campaign: [`evidence/run-plan.json`](evidence/run-plan.json). Run each ladder item
+with the launcher's apply entrypoint:
+
+    /usr/bin/python3 -B evidence/p2a_live_launcher.py --go <ladder-item>
+
 ![Results card](results/results-card-immersive.png)
 
 Interactive version: open [`results/results-card-immersive.html`](results/results-card-immersive.html) in a browser.
@@ -76,7 +82,7 @@ measurement. The copy runs on the copy engines (CE), not the SM read path. A mem
 **not** a ceiling oracle on this hardware. The honest SM-read number is derived from a measured
 real workload (decode rate times bytes/token).
 
-### 3. Flash Attention: rejected as a lever (measured equality, diagnostic)
+### 3. Flash Attention: near-identical speeds, identity unverified
 FA on/off is within noise on this dense model (27.34 vs 27.41 tok/s; prefill 697.6 vs 698.1).
 The FA-on candidate's identity is unverified (ledger `startup_s=0.0`), so the FA comparison is
 DIAGNOSTIC, not a controlled rejection. Recorded as a rejected lever per the methodology.
@@ -107,7 +113,7 @@ recipe concept (validated recipes with evidence attached) motivates the artifact
 
 ## Honest limits
 
-- One GPU class, one model, one quant. A study, not a survey.
+- One GPU class, one model, one quant (ARETE-27B study). A study, not a survey.
 - `peak-TFLOPS` for the prefill ceiling is spec-derived, not measured. The prefill achieved-throughput share is 49-55% of the 1265 tok/s SPEC estimate (UNMEASURED ceiling; matrix M12).
   That share is NOT remaining headroom; the actual prefill headroom remains UNOBSERVED until a GEMM probe runs.
 - Speculative decoding was not tested end-to-end: `ollama` hides that lever, and the direct path
