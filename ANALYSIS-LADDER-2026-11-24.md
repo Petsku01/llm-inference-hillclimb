@@ -22,6 +22,10 @@ funktionaalista); 2 aitoa poikkeamaa: QT4-call tyhjä vastaus + 343-aritmetiikka
 Molemmat DETERMINISTISET (toistuvat identtisinä kaikissa 6 ajossa ja kaikissa
 konteksteissa 32k/131k) — eli toistettu kvanttioittautuminen, ei kohinaa.
 
+Attributing the 343 arithmetic answer to quantization would require running the
+same task at higher weight precision as a control; the 6/6 repetition shows
+reproducibility, not cause.
+
 ## Neulat (fresh-dokumentaatio per kylmäkäynnistys): 6/6 PASS kaikissa 6 ajossa
 — needle-retrieval fresh-dokumeille toimii kylmäkäynnistyksittäin.
 

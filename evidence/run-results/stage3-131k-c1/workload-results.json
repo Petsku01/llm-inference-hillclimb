@@ -1,0 +1,114 @@
+[
+  {
+    "request_id": "stage3-131k-c1-0000",
+    "kind": "readiness",
+    "id": "QT1-smoke",
+    "passed": true,
+    "text": "READY"
+  },
+  {
+    "request_id": "stage3-131k-c1-0001",
+    "kind": "qt",
+    "id": "QT2-followup",
+    "passed": false,
+    "text": "Project LARK: 7"
+  },
+  {
+    "request_id": "stage3-131k-c1-0002",
+    "kind": "qt",
+    "id": "QT4-call",
+    "passed": false,
+    "text": ""
+  },
+  {
+    "request_id": "stage3-131k-c1-0003",
+    "kind": "qt",
+    "id": "QT4-final",
+    "passed": false,
+    "text": "LARK:7"
+  },
+  {
+    "request_id": "stage3-131k-c1-0004",
+    "kind": "greedy",
+    "id": "facts",
+    "passed": true,
+    "text": "MAPLE"
+  },
+  {
+    "request_id": "stage3-131k-c1-0005",
+    "kind": "greedy",
+    "id": "arithmetic",
+    "passed": false,
+    "text": "343"
+  },
+  {
+    "request_id": "stage3-131k-c1-0006",
+    "kind": "greedy",
+    "id": "logic",
+    "passed": false,
+    "text": "Blue"
+  },
+  {
+    "request_id": "stage3-131k-c1-0007",
+    "kind": "greedy",
+    "id": "sequence",
+    "passed": true,
+    "text": "32"
+  },
+  {
+    "request_id": "stage3-131k-c1-0008",
+    "kind": "greedy",
+    "id": "followup",
+    "passed": true,
+    "text": "LARK:7"
+  },
+  {
+    "request_id": "stage3-131k-c1-0009",
+    "kind": "greedy",
+    "id": "sorting",
+    "passed": true,
+    "text": "2,5,9"
+  },
+  {
+    "request_id": "stage3-131k-c1-0010",
+    "kind": "needle",
+    "id": "ledger",
+    "passed": true,
+    "text": "{\"N25\": \"644580\", \"N50\": \"635022\", \"N75\": \"722988\", \"N90\": \"535168\"}"
+  },
+  {
+    "request_id": "stage3-131k-c1-0011",
+    "kind": "needle",
+    "id": "registry",
+    "passed": true,
+    "text": "{\"N25\": \"797645\", \"N50\": \"088320\", \"N75\": \"504722\", \"N90\": \"572866\"}"
+  },
+  {
+    "request_id": "stage3-131k-c1-0012",
+    "kind": "needle",
+    "id": "catalog",
+    "passed": true,
+    "text": "{\"N25\": \"093600\", \"N50\": \"175118\", \"N75\": \"393875\", \"N90\": \"697706\"}"
+  },
+  {
+    "request_id": "stage3-131k-c1-0013",
+    "kind": "needle",
+    "id": "schedule",
+    "passed": true,
+    "text": "{\"N25\": \"871237\", \"N50\": \"653402\", \"N75\": \"703777\", \"N90\": \"803866\"}"
+  },
+  {
+    "request_id": "stage3-131k-c1-0014",
+    "kind": "needle",
+    "id": "journal",
+    "passed": true,
+    "text": "{\"N25\": \"455626\", \"N50\": \"326540\", \"N75\": \"615486\", \"N90\": \"522093\"}"
+  },
+  {
+    "request_id": "stage3-131k-c1-0015",
+    "kind": "needle",
+    "id": "roster",
+    "passed": true,
+    "text": "{\"N25\": \"569929\", \"N50\": \"665771\", \"N75\": \"708153\", \"N90\": \"915825\"}"
+  }
+]

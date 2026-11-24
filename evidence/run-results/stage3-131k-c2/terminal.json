@@ -1,0 +1,27 @@
+{
+  "run_id": "E3-stage3-131k-c2",
+  "status": "completed",
+  "model_loads": 1,
+  "inference_requests": 16,
+  "elapsed_s": 358.2661725360085,
+  "timestamp_ns": 1795509986938318165,
+  "terminal_capture_path": "../runs/E3/p2a-runtime/stage3-131k-c2/terminal.json",
+  "scope": "stage3",
+  "foreign_pre": {
+    "foreign_consumer_detected": false,
+    "pids": []
+  },
+  "identity": {
+    "model_path": "../../models/Qwen3.5-9B-Q4_K_M.gguf",
+    "model_sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+    "expected_model_sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8"
+  },
+  "config": {
+    "effective_config_sha256": "f22a8b53ee04c61a4aa9030144f5e0480ddd576825b2f6ec81af25481a9bde7e"
+  },
+  "cap": {
+    "scope": "stage3",
+    "intents_ok": true,
+    "wall_s_ok": true
+  }
+}

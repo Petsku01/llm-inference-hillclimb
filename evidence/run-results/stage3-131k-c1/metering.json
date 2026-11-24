@@ -1,0 +1,8 @@
+{
+  "run_id": "E3-stage3-131k-c1",
+  "readiness_intents": 1,
+  "tokenize_intents": 0,
+  "uncertain_dispatch_intents": 5,
+  "total_metered_intents": 6,
+  "wall_s": 358.2048078629887
+}

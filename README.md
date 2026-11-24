@@ -5,6 +5,28 @@
 **Date:** 2026-11-17
 **Methodology source:** [inference-optimisation-skill](https://github.com/sybil-solutions/inference-optimisation-skill) (MIT) by Sybil Solutions, applied and extended on a laptop-class GPU with two new measurement findings prepared for contribution (bundle registry-sub-arete, not yet submitted).
 
+## What a 12 GB laptop GPU can actually run
+
+A **Qwen3.5-9B Q4_K_M** at **131 072 token context** is validated end-to-end on this
+machine: **6/6 needles retrieved on all 3 cold starts** (fresh documents per cold start),
+at a **peak of ~8.3 GiB (8.32 GiB, converted from `device_peak_observed_bytes`)**.
+
+Cost of a 16-request series: **71 s @32k vs 358 s @131k**.
+
+- Recipes: [`recipes-32k.json`](recipes-32k.json) / [`recipes-131k.json`](recipes-131k.json)
+- Raw run results: [`evidence/run-results/`](evidence/run-results/)
+- Analysis: [`ANALYSIS-LADDER-2026-11-24.md`](ANALYSIS-LADDER-2026-11-24.md)
+
+## One working run command
+
+Reproduce the validated 131k cold-start run with:
+
+    /usr/bin/python3 -B evidence/p2a_live_launcher.py --go stage3-131k-c1
+
+The launcher loads its substrate from `evidence/guarded_runtime.py` and
+`evidence/execution-core.py`; the captured results for this run and its five
+companions are stored alongside in `evidence/run-results/`.
+
 ![Results card](results/results-card-immersive.png)
 
 Interactive version: open [`results/results-card-immersive.html`](results/results-card-immersive.html) in a browser.

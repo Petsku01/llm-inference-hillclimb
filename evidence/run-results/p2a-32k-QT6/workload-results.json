@@ -1,0 +1,114 @@
+[
+  {
+    "request_id": "p2a-32k-QT6-0000",
+    "kind": "readiness",
+    "id": "QT1-smoke",
+    "passed": true,
+    "text": "READY"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0001",
+    "kind": "qt",
+    "id": "QT2-followup",
+    "passed": false,
+    "text": "Project LARK: 7"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0002",
+    "kind": "qt",
+    "id": "QT4-call",
+    "passed": false,
+    "text": ""
+  },
+  {
+    "request_id": "p2a-32k-QT6-0003",
+    "kind": "qt",
+    "id": "QT4-final",
+    "passed": false,
+    "text": "LARK:7"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0004",
+    "kind": "greedy",
+    "id": "facts",
+    "passed": true,
+    "text": "MAPLE"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0005",
+    "kind": "greedy",
+    "id": "arithmetic",
+    "passed": false,
+    "text": "343"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0006",
+    "kind": "greedy",
+    "id": "logic",
+    "passed": false,
+    "text": "Blue"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0007",
+    "kind": "greedy",
+    "id": "sequence",
+    "passed": true,
+    "text": "32"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0008",
+    "kind": "greedy",
+    "id": "followup",
+    "passed": true,
+    "text": "LARK:7"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0009",
+    "kind": "greedy",
+    "id": "sorting",
+    "passed": true,
+    "text": "2,5,9"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0010",
+    "kind": "needle",
+    "id": "ledger",
+    "passed": true,
+    "text": "{\"N25\": \"563099\", \"N50\": \"089316\", \"N75\": \"160990\", \"N90\": \"632352\"}"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0011",
+    "kind": "needle",
+    "id": "registry",
+    "passed": true,
+    "text": "{\"N25\": \"333712\", \"N50\": \"660106\", \"N75\": \"439185\", \"N90\": \"129962\"}"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0012",
+    "kind": "needle",
+    "id": "catalog",
+    "passed": true,
+    "text": "{\"N25\": \"896790\", \"N50\": \"700550\", \"N75\": \"413752\", \"N90\": \"920258\"}"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0013",
+    "kind": "needle",
+    "id": "schedule",
+    "passed": true,
+    "text": "{\"N25\": \"041800\", \"N50\": \"240969\", \"N75\": \"142961\", \"N90\": \"325905\"}"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0014",
+    "kind": "needle",
+    "id": "journal",
+    "passed": true,
+    "text": "{\"N25\": \"372171\", \"N50\": \"734904\", \"N75\": \"630776\", \"N90\": \"638404\"}"
+  },
+  {
+    "request_id": "p2a-32k-QT6-0015",
+    "kind": "needle",
+    "id": "roster",
+    "passed": true,
+    "text": "{\n  \"N25\": \"581526\",\n  \"N50\": \"247422\",\n  \"N75\": \"440946\",\n  \"N90\": \"543094\"\n}"
+  }
+]

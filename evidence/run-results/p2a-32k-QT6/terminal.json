@@ -1,0 +1,27 @@
+{
+  "run_id": "E3-p2a-32k-QT6",
+  "status": "completed",
+  "model_loads": 1,
+  "inference_requests": 16,
+  "elapsed_s": 70.91245409101248,
+  "timestamp_ns": 1795510061942182489,
+  "terminal_capture_path": "../runs/E3/p2a-runtime/p2a-32k-QT6/terminal.json",
+  "scope": "p2a",
+  "foreign_pre": {
+    "foreign_consumer_detected": false,
+    "pids": []
+  },
+  "identity": {
+    "model_path": "../../models/Qwen3.5-9B-Q4_K_M.gguf",
+    "model_sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+    "expected_model_sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8"
+  },
+  "config": {
+    "effective_config_sha256": "13896c6b946777b691f6bd03ddbdf37490a22db685cfd4c392db6364cb8aa838"
+  },
+  "cap": {
+    "scope": "p2a",
+    "intents_ok": true,
+    "wall_s_ok": true
+  }
+}
